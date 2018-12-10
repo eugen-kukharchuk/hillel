@@ -1,13 +1,29 @@
 <?php
-    $dsn = 'mysql:host=localhost;dbname=userdb';
-    $username = 'mysql';
-    $passwd = 'mysql';
-    $options = [];
-    echo '<pre>';
-    echo '<a href = "index.php">Back</a>';
-    $pdo = new PDO($dsn, $username, $passwd, $options);
+    require_once 'autoload_custom.php';
 
-    echo '<hr>';
-    $st = $pdo->query('SELECT * FROM city', PDO::FETCH_ASSOC);
-    var_dump($st->execute());
-    var_dump($st->fetchAll());
+
+    $pdo = Connection::getConnect();
+    $statement = $pdo->query('SELECT * FROM city ORDER BY NAME');
+    $statement ->setFetchMode(
+        PDO::FETCH_CLASS,
+        'City');
+
+    $cityArray = $statement->fetchAll();
+
+    echo '<pre>';
+    echo "<table border=1 cellpadding=2 cellspacing=0>
+                    <tr>
+                    <td>ID </td>
+                    <td>NAME</td>
+                    <td>COUNTRY ID</td>
+                    </tr>";
+
+    foreach ($cityArray as $ct) {
+        echo "<tr>
+                        <td>{$ct->getId()} </td>
+                        <td>{$ct->getName()} </td>
+                        <td>{$ct->getCountryId()} </td>
+                    </tr>";
+    }
+    echo "</table>";
+    echo "<br><a href = 'index.php'>BACK</a>";

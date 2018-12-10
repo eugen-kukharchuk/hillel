@@ -1,24 +1,28 @@
 <?php
-    $data = $_POST;
-    $name = $data['countries'];
+    require_once 'autoload_custom.php';
 
-    $sql = "SELECT p.last_name, p.first_name, c.name as city_name, cnt.name
-            FROM profile as p
-            JOIN city c ON p.city_id=c.id
-            JOIN country cnt ON c.country_id=cnt.id
-            WHERE cnt.code = '$name'";
+    $pdo = Connection::getConnect();
+    $statement = $pdo->query('SELECT * FROM country ORDER BY id');
+    $statement ->setFetchMode(
+        PDO::FETCH_CLASS,
+        'Country');
 
-    //echo $sql.'<br>';
+    $cntArray = $statement->fetchAll();
 
-    $dsn = 'mysql:host=localhost;dbname=userdb';
-    $username = 'mysql';
-    $passwd = 'mysql';
-    $options = [];
     echo '<pre>';
-    echo '<a href = "index.php"><b>BACK</b></a><br><br>';
-    $pdo = new PDO($dsn, $username, $passwd, $options);
+    echo "<table border=1 cellpadding=2 cellspacing=0>
+                <tr>
+                <td>ID </td>
+                <td>NAME</td>
+                <td>CODE</td>
+                </tr>";
 
-    $st = $pdo->query($sql, PDO::FETCH_ASSOC);
-    var_dump($st->execute());
-    var_dump($st->fetchAll());
-
+    foreach ($cntArray as $cnt) {
+        echo "<tr>
+                    <td>{$cnt->getId()} </td>
+                    <td>{$cnt->getName()} </td>
+                    <td>{$cnt->getCode()} </td>
+                </tr>";
+    }
+    echo "</table>";
+    echo "<br><a href = 'index.php'>BACK</a>";
