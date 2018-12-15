@@ -10,6 +10,7 @@ class Usr
 {
     private $id;
     private $login;
+    private $password;
     private $last_login;
     private $status;
 
@@ -33,5 +34,9 @@ class Usr
 
     public function getStatus(){
         return $this->status;
+    }
+
+    public function getPassword(){
+        return $this->password;
     }
 }

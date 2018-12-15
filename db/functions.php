@@ -33,7 +33,7 @@
                     </tr>";
         $i=1;
         foreach ($cityArray as $ct) {
-            echo "<tr>
+            echo "<tr >
                         <td>$i</td>
                         <td>{$ct['last_name']} </td>
                         <td>{$ct['first_name']} </td>
@@ -43,7 +43,16 @@
             $i++;
         }
         echo "</table>";
-        //echo "<br><a href = 'index.php'>BACK</a>";
+    }
 
+    function editUser(PDO $pdo, $id, $login, $password)
+    {
+        $pdo->query(sprintf("UPDATE user SET 'login'=%s 'password'=%s WHERE 'id' = %s", $login, $password, $id));
+        var_dump(sprintf('UPDATE user SET login=%s password=%s WHERE id = %s', $login, $password, $id));
+    }
+    function createUser(PDO $pdo, $login, $password)
+    {
+        $st = $pdo->query("INSERT INTO user (login, password) VALUES ({$login},{$password})");
+        var_dump($st);
     }
 

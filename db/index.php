@@ -2,6 +2,9 @@
 <?php
 require_once 'autoload_custom.php';
 require_once 'functions.php';
+
+
+var_dump($_POST);
 ?>
 
 <html>
@@ -78,13 +81,11 @@ require_once 'functions.php';
     <tr height=95% >
         <td colspan=5 valign=top>
             <?php
-            if (empty($_POST))
-            {
-            }
-            else
+            if (!empty($_POST))
             {
                 showSearchResults();
             }
+
             ?>
         </td>
     </tr>
@@ -92,8 +93,5 @@ require_once 'functions.php';
 </table>
 
 </body>
-
-
-
 
 </html>
