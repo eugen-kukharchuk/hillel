@@ -19,7 +19,6 @@
         echo '<pre>';
         echo '<a href = "index.php"><b>BACK</b></a><br><br>';
 
-       // var_dump($st->execute());
         $cityArray = $st->fetchAll();
 
         echo '<pre>';
@@ -47,12 +46,15 @@
 
     function editUser(PDO $pdo, $id, $login, $password)
     {
-        $pdo->query(sprintf("UPDATE user SET 'login'=%s 'password'=%s WHERE 'id' = %s", $login, $password, $id));
-        var_dump(sprintf('UPDATE user SET login=%s password=%s WHERE id = %s', $login, $password, $id));
+
+        $result = $pdo->exec(sprintf("UPDATE user SET `login`='%s', `password`='%s' WHERE id = %s", $login, $password, $id));
+        if ($result === false)
+            var_dump($pdo->errorInfo());
     }
     function createUser(PDO $pdo, $login, $password)
     {
-        $st = $pdo->query("INSERT INTO user (login, password) VALUES ({$login},{$password})");
-        var_dump($st);
+        $result = $pdo->exec(sprintf("INSERT INTO user (`login`, `password`) VALUE ('%s', '%s')", $login, $password));
+        if ($result === false)
+            var_dump($pdo->errorInfo());
     }
 

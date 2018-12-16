@@ -3,25 +3,18 @@
     require_once 'functions.php';
 
     $pdo = Connection::getConnect();
-    $statement = $pdo->query('SELECT * FROM user');
-    $statement ->setFetchMode(
-        PDO::FETCH_CLASS,
-        'Usr');
 
-    $userArray = $statement->fetchAll();
-
-    //echo '<pre>';
-    //foreach ($userArray as $user) {
-    //    echo $user->getLastLogin().'<br>';
-    //}
+    $userDb = new UserDb($pdo);
 
     if (!empty($_POST) && key_exists("Add", $_POST)){
-        createUser($pdo, $_POST['login'],$_POST['password']);
+        $userDb->createUser($_POST['login'],$_POST['password']);
     } elseif (!empty($_POST)){
-        var_dump($_POST);
-        createUser($pdo, $_POST['login'],$_POST['password']);
-        //editUser($pdo, $_POST['id'], $_POST['login'],$_POST['password']);
+        $userDb->editUser($_POST['id'], $_POST['login'],$_POST['password']);
+    } elseif (!empty($_POST) && key_exists("delete", $_POST)){
+        $userDb->deleteUser();
     }
+
+    $userArray = $userDb->getUserArray();
 
     echo "
     <table border=1 cellpadding=2 cellspacing=0>

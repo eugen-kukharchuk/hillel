@@ -3,8 +3,8 @@
 
     $pdo = Connection::getConnect();
 
-    if ($_GET){
-        $user_id = $_GET ['id'];
+    if ($_POST){
+        $user_id = $_POST ['id'];
     }
 
     echo "<b>Вы действительно хотите удалить пользователя? </b><br>
@@ -14,8 +14,8 @@
             <button type='submit' name = 'cancel' value ='cancel'>Cancel</button>
          </p>
          </form>";
-  var_dump($_GET);
-    if ($_GET['delete'])
+  var_dump($_POST);
+    if ($_POST['delete'])
     {
        echo "$user_id";
        $pdo->query("DELETE FROM user WHERE id = $user_id");

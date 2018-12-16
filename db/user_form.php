@@ -20,7 +20,7 @@
     
             <strong>ENTER PASSWORD</strong><br>
             <input type = 'password' name = 'password' size = '20'><br>	   
-            <input type = 'submit' value = 'Add' name = 'submit'><br> 	  	
+            <input type = 'submit' value = 'Add' name = 'Add'><br> 	  	
             
         </form>
         ";
