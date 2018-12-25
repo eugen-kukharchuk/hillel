@@ -1,24 +1,21 @@
 <?php
     require_once 'autoload_custom.php';
 
-    $pdo = Connection::getConnect();
+    $pdo=Connection::getConnect();
+    $userDb=new UserDb($pdo);
+    $id=$_GET ['id'];
+    $user = $userDb->getUser($id);
 
-    if ($_POST){
-        $user_id = $_POST ['id'];
-    }
+    echo "
+        <b>Вы действительно хотите удалить пользователя {$user->getLogin()}? </b><br>
+         <form id = 'delete' action='user.php' method='post'>
+         <input type = 'hidden' name = 'action' value = 'delete'>
+         <input type = 'hidden' name = 'id' value = '{$user->getId()}'>
+         <button>Delete</button>
+         </form>
+         
+         <form action='user.php' method='get'>
+         <button>Cancel</button>
+         </form>
+         ";
 
-    echo "<b>Вы действительно хотите удалить пользователя? </b><br>
-         <form action='delete.php' method='get'>
-         <input type = 'text' name = 'id' value = '{$user_id}'>
-         <p><button type='submit' name = 'delete' value = 'del'>Delete</button>
-            <button type='submit' name = 'cancel' value ='cancel'>Cancel</button>
-         </p>
-         </form>";
-  var_dump($_POST);
-    if ($_POST['delete'])
-    {
-       echo "$user_id";
-       $pdo->query("DELETE FROM user WHERE id = $user_id");
-    }
-
-    echo "<br><a href = 'user.php'>BACK</a>";

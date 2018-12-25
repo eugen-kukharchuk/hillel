@@ -15,12 +15,13 @@
         echo "
         <form method='POST' action ='user.php'>
             <h1>ДОБАВИТЬ НОВОГО ПОЛЬЗОВАТЕЛЯ</h1>
+            <input type='hidden' name='action' value='create'>
             <strong>ENTER LOGIN</strong><br>
             <input type = 'text'  name = 'login' size = '20'><br>	   
     
             <strong>ENTER PASSWORD</strong><br>
             <input type = 'password' name = 'password' size = '20'><br>	   
-            <input type = 'submit' value = 'Add' name = 'Add'><br> 	  	
+            <input type = 'submit' value = 'Add'><br> 	  	
             
         </form>
         ";
@@ -29,6 +30,7 @@
         <form method='POST' action ='user.php'>
             <h1>РЕДАКТИРОВАТЬ ПОЛЬЗОВАТЕЛЯ</h1>
             <input type = 'hidden' name = 'id' value = '{$user->getId()}'>
+            <input type='hidden' name='action' value='update'>
             <strong>ENTER LOGIN</strong><br>
             <input type = 'text' value = '{$user->getLogin()}' name = 'login' size = '20'><br>	   
     

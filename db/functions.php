@@ -1,6 +1,4 @@
 <?php
-
-
     function showSearchResults()
     {
         $pdo = Connection::getConnect();
@@ -42,19 +40,5 @@
             $i++;
         }
         echo "</table>";
-    }
-
-    function editUser(PDO $pdo, $id, $login, $password)
-    {
-
-        $result = $pdo->exec(sprintf("UPDATE user SET `login`='%s', `password`='%s' WHERE id = %s", $login, $password, $id));
-        if ($result === false)
-            var_dump($pdo->errorInfo());
-    }
-    function createUser(PDO $pdo, $login, $password)
-    {
-        $result = $pdo->exec(sprintf("INSERT INTO user (`login`, `password`) VALUE ('%s', '%s')", $login, $password));
-        if ($result === false)
-            var_dump($pdo->errorInfo());
     }
 
